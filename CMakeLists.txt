@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 3.10)
 project(processWatchdog C CXX)
 
+set(DEPLOY_DIR_2 "../../docker-files/production")
+
 option(MAX_APPS_OPTION "Set the maximum number of applications" ON)
 if(MAX_APPS_OPTION)
     set(MAX_APPS 6 CACHE STRING "Maximum number of applications")
@@ -31,3 +33,13 @@ add_executable(processWatchdog
 enable_testing()
 find_package(GTest REQUIRED)
 add_subdirectory(test)
+
+message(STATUS "${DEPLOY_DIR_2}")
+
+if(EXISTS "${DEPLOY_DIR_2}")
+    add_custom_command(
+        TARGET processWatchdog POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy
+                ${CMAKE_CURRENT_BINARY_DIR}/processWatchdog
+                ${DEPLOY_DIR_2}/)
+endif()
