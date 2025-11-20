@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.10)
 project(processWatchdog C CXX)
 
-set(DEPLOY_DIR_2 "../../docker-files/production")
+set(DEPLOY_DIR_2 "../../../docker-files/production")
 
 option(MAX_APPS_OPTION "Set the maximum number of applications" ON)
 if(MAX_APPS_OPTION)
